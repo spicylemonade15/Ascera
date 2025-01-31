@@ -47,8 +47,8 @@ const router = createBrowserRouter([
       {
         path: 'my-investors',
         element: <MyInvestors />
-      }
-
+      },
+    
     ]
   }
 ])
