@@ -9,6 +9,7 @@ import PostStartup from './pages/post-startup'
 import InvestorProfile from './pages/investor-profile'
 import FindInvestor from './pages/find-investor'
 import MyInvestors from './pages/my-investors'
+import { ThemeProvider } from './components/theme-provider'
 
 // creater router for app routing
 const router = createBrowserRouter([
@@ -52,7 +53,11 @@ const router = createBrowserRouter([
   }
 ])
 function App() {
-    return <RouterProvider router = { router } />;
+    return (
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <RouterProvider router = { router } />
+    </ThemeProvider>
+    );
 }
 
 export default App
