@@ -8,22 +8,32 @@ import {Accordion,AccordionContent,AccordionItem,AccordionTrigger} from "@/compo
 const LandingPage = () => {
   return (
     <main className="flex flex-col gap-10 sm:gap-20 py-10 sm:py-20">
-      <section className="text-center ">
-      <h1 className="flex flex-col items-center justify-center gradient-title font-extrabold text-4xl sm:text-6xl lg:text-8xl tracking-tighter py-4"> 
-      <span className="flex items-center gap-1 sm:gap-1">
-       <img src="logo.png" 
-       className="h-14 sm:h-24 lg:h-32"
-       />
-      -factor for the entrepreneur
-      </span>
-      within you
+  <section className="text-center px-4 sm:px-8 lg:px-16 py-6 sm:py-12">
+    <div>
+      {/* Title Section */}
+      <h1 className="flex flex-col items-center justify-center text-white gradient-title font-extrabold text-3xl sm:text-5xl lg:text-7xl tracking-tight leading-tight gap-y-3 sm:gap-y-5">
+        {/* Logo + Title Wrapper */}
+        <span className="flex flex-wrap items-center justify-center gap-x-2 sm:gap-x-4">
+          <img 
+            src="logo.png" 
+            className="h-12 sm:h-20 lg:h-28 max-w-full"
+            alt="Logo"
+          />
+          <span className="whitespace-nowrap text-center">-factor for the </span>
+        </span>
+        <span>entrepreneur in you</span>
       </h1>
-      <p className="text-gray-50 sm:mt-4 text-xs sm:text-xl">
-          Kickstart you Startup growth with investors from all acorss the globe.
-        </p>
-      </section>
+    </div>
+
+    {/* Subtitle Section */}
+    <p className="text-gray-300 mt-3 sm:mt-5 text-sm sm:text-lg lg:text-xl max-w-2xl mx-auto leading-relaxed text-wrap">
+      Kickstart your startup growth with investors from all across the globe.
+    </p>
+  </section>
+
+
       <div className="flex gap-6 justify-center">
-        <Link to='/startups'>
+        <Link to='/profile'>
         <Button variant='blue' size='xl'>Invest</Button>
         </Link>
 
