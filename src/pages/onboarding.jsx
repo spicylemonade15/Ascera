@@ -6,21 +6,23 @@ const Onboarding = () => {
   const navigate = useNavigate()
   // taking input from the user as a founder or investor and respond accordingly. 
 
+  // for founder
   const handleRoleSelection=async()=>{
     await user.update({
       unsafemetadata: { role },
     }).then(()=>{
-      navigate(role === "founder" ? "/" : "/");
+      navigate(role === "founder" ? "/post-startup" : "/profile");
      })
      .catch((err)=> {
       console.error("Error updating role:",err);
      });
   };
 
+  // for investor 
   useEffect(() => {
     if(user.unsafemetadata.role){
       navigate(
-        user.unsafemetadata.role === "investor" ? "" : ""
+        user.unsafemetadata.role === "investor" ? "/profile" : "/post-startups"
       );
     }
 
