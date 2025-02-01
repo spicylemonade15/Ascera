@@ -1,16 +1,23 @@
 import { useUser } from "@clerk/clerk-react";
 import { BarLoader } from "react-spinners";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { Button } from "../components/ui/button";
 
 const Onboarding = () => {
   const { user, isLoaded } = useUser();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   // taking input from the user as a founder or investor and respond accordingly. 
 
   // for founder
-  const handleRoleSelection=async()=>{
+  
+  const handleRoleSelection=async(role)=>{
+    if(!role) return;
+
     await user.update({
-      unsafemetadata: { role },
-    }).then(()=>{
+      unsafeMetadata: { role },
+    })
+    .then(()=>{
       navigate(role === "founder" ? "/post-startup" : "/profile");
      })
      .catch((err)=> {
@@ -20,9 +27,9 @@ const Onboarding = () => {
 
   // for investor 
   useEffect(() => {
-    if(user.unsafemetadata.role){
+    if(user?.unsafeMetadata?.role){
       navigate(
-        user.unsafemetadata.role === "investor" ? "/profile" : "/post-startups"
+        user?.unsafeMetadata?.role === "investor" ? "/profile" : "/post-startups"
       );
     }
 
@@ -34,16 +41,16 @@ const Onboarding = () => {
 
   return (
     //creating two buttons founfer and investor for both of them to login and acess the website accordingly.
-    <div className="flex flex-col items-center justify-center mt-32">
-      <h2 className="gradient-title font-extrabold text-7x1 sm:text-8x1 tracking-tighter">
+    <div className="flex flex-col items-center justify-center mt-40">
+      <h1 className="gradient-title font-extrabold text-7xl sm:text-8xl tracking-tighter">
         I am a..
-      </h2>
+      </h1>
       <div className="mt-16 grid grid-cols-2 gap-4 w-full md:px-40">
-        <Button variant="blue" classsName="h-36 text-2x1 "
+        <Button variant="blue" className="h-32 text-3xl "
         onClick={() =>handleRoleSelection("Founder")}>
           Founder
          </Button>
-         <Button variant="destructive" classsName="h-36 text-2x1"
+         <Button variant="destructive" className=" h-32 text-3xl"
         onClick={() =>handleRoleSelection("Investor")}>
          
          Investor
