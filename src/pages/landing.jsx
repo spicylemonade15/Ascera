@@ -6,7 +6,6 @@ import faqs from "../data/faq.json";
 import {Accordion,AccordionContent,AccordionItem,AccordionTrigger} from "@/components/ui/accordion";
 
 const LandingPage = () => {
-<<<<<<< Updated upstream
   return (
     <main className="flex flex-col gap-10 sm:gap-20 py-10 sm:py-20">
       <section className="text-center ">
@@ -63,17 +62,7 @@ const LandingPage = () => {
       </Accordion>
     </main>
   )
-=======
-  return <main>
-    <section>
-      <h1>Builiding Bridges Between Ambitions And Innovations </h1>
-
-
-    </section>  
-    
-
-  </main>; 
->>>>>>> Stashed changes
 }
-
 export default LandingPage
+
+ 
