@@ -13,15 +13,15 @@ const ProtectedRoute = ({ children }) => {
 
     // if not signed in then navigate to landing page
     if (isLoaded && !isSignedIn && isSignedIn!==undefined) {
-        return <Navigate to="/?sign-in=true"></Navigate>
+        return <Navigate to="/?sign-in=true"/>;
     } 
 
     // if user exists but has not chosen role and is trying to access some other pages 
     if (user!== undefined && !user?.unsafeMetadata?.role && pathname!=="/onboarding")
-        return <Navigate to ="/onboarding" />
+        return <Navigate to ="/onboarding" />;
 
     // return the page user is trying to access otherwise 
     return children;
-}
+};
 
-export default ProtectedRoute
+export default ProtectedRoute;

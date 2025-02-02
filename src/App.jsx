@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './App.css'
+import ProtectedRoute from "./components/protected-routes";
 import AppLayout from './layouts/app-layout'
 import LandingPage from './pages/landing'
 import Onboarding from './pages/onboarding'
@@ -22,31 +23,45 @@ const router = createBrowserRouter([
       }, 
       {
         path: '/onboarding',
-        element: <Onboarding />
+        element:( <ProtectedRoute>
+          <Onboarding />
+        </ProtectedRoute>),
       },
       {
         path: '/profile',
-        element: <InvestorProfile />
+        element:( <ProtectedRoute>
+          <InvestorProfile />
+        </ProtectedRoute>),
       },
       {
         path: '/startups',
-        element: <StartupListing />
+        element: ( <ProtectedRoute>
+          <StartupListing />
+        </ProtectedRoute>),
       },
       {
         path: '/startup/:id',
-        element: <StartupPage />
+        element: ( <ProtectedRoute>
+          <StartupPage />
+        </ProtectedRoute>),
       }, 
       {
         path: '/post-startup',
-        element: <PostStartup />
+        element: ( <ProtectedRoute>
+          <PostStartup />
+        </ProtectedRoute>),
       }, 
       {
         path: '/investors',
-        element: <FindInvestor />
+        element: ( <ProtectedRoute>
+          <FindInvestor />
+        </ProtectedRoute>),
       },
       {
         path: 'my-investors',
-        element: <MyInvestors />
+        element: ( <ProtectedRoute>
+          <MyInvestors />
+        </ProtectedRoute>),
       },
     
     ]
