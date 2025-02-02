@@ -56,7 +56,7 @@ const Header = () => {
 
     {/* showSignIn component */}
     {showSignIn && (
-      <div onClick = {handleClickOutside} className="bg-blue">
+      <div onClick = {handleClickOutside} className="fixed inset-0 flex justify-center items-center">
         {/* redirect to onboarding page if signed in */}
         <SignIn forceRedirectUrl="/onboarding" />
       </div>
