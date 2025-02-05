@@ -1,23 +1,33 @@
 // for investors to create their profile
 
-import { useState } from "react"
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select" 
+
+import { useEffect, useState } from "react"
+import { getInvestors } from "../api/apiInvestor"
+import useFetch from "../hooks/use-fetch"
 
 const InvestorProfile = () => {
-  const [profile, isProfile] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    isProfile(true);
-  }
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  const {
+    data: investors,
+    fn: fnInvestor
+  } = useFetch(getInvestors);
+
+  useEffect(()=>{
+    if (isLoaded) fnInvestor();
+  }, [isLoaded]);
+
+  console.log("Investor data fetchec: ", investors)
 
   return (
     <>
-    <h1>Profile Creation</h1>
-    <form onSubmit={handleSubmit} >
-      <input placeholder ='Enter your name'></input> 
-      <button type='submit'>Submit</button></form> 
-
-
+    <h1 className="flex items-center ">Profile Creation</h1>
+    <div>investors info: 
+      
+    
+</div>
     </>
   )
 }

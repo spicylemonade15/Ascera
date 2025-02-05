@@ -22,15 +22,16 @@ const useFetch = (cb, options = {}) => {
 
         try {
             // get supabase token from current session
-            const supabaseToken = await session.getToken({
+            const supabaseAccessToken = await session.getToken({
                 template: "supabase",
             })
 
             // awaiting response from the callback function 
-            const response = await cb(supabaseToken, options, ...args)
+            const response = await cb(supabaseAccessToken, options, ...args);
 
             // store response in data
             setData(response);
+            console.log(response);
 
             // no error found
             setError(null);
@@ -42,8 +43,11 @@ const useFetch = (cb, options = {}) => {
         }
     }
 
+    // log whatever data is being fetched
+    console.log(data);
+
     // return data fetched, loading status, errors and function
     return { data, loading, error, fn };
 }
 
-export default useFetch;
+export default useFetch
