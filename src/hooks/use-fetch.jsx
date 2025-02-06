@@ -1,5 +1,5 @@
 import { useSession } from '@clerk/clerk-react';
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 // custom hook to fetch data from supabase
 const useFetch = (cb, options = {}) => {
@@ -31,7 +31,6 @@ const useFetch = (cb, options = {}) => {
 
             // store response in data
             setData(response);
-            console.log(response);
 
             // no error found
             setError(null);
@@ -42,9 +41,6 @@ const useFetch = (cb, options = {}) => {
             setLoading(false);
         }
     }
-
-    // log whatever data is being fetched
-    console.log(data);
 
     // return data fetched, loading status, errors and function
     return { data, loading, error, fn };
