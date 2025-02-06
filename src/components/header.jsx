@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { Button } from './ui/button'
 import { SignedIn, SignedOut,  SignIn,  UserButton, useUser } from '@clerk/clerk-react'
+import { BriefcaseBusiness, Heart, PenBox } from 'lucide-react'
+
 
 // header component 
 const Header = () => {
@@ -33,14 +35,13 @@ const Header = () => {
 
   return (
     <>
-    <div>
       <nav className='py-4 flex justify-between items-center'>
         <Link>
         <img src="/logo.png" className='h-20' />
         </Link>
 
         {/* <Button variant="outline">Login</Button> */}
-
+      <div>
         <SignedOut>
 
           {/* on click set showSignIn to true */}
@@ -48,15 +49,62 @@ const Header = () => {
 
       </SignedOut>
       <SignedIn>
-        <UserButton />
-      </SignedIn>
 
-      </nav>
-      
-    </div>
+      { 
+              user?.unsafeMetadata?.role === "Founder" && (
+              <Link to="/post-startup">
+              
+              <Button variant="destructive" className='rounded-full'>
+                 <PenBox size={20} className="mr-2" ></PenBox>
+                  Post a Startup
+                </Button>              
+              </Link>)}
+
+              <div className='flex flex-col sm:flex-row gap-2 sm:gap-4'>
+
+              {
+              user?.unsafeMetadata?.role === "Investor" && (
+                <Link to="/investor-profile">
+                
+                <Button variant="destructive" className='rounded-full'>
+                   <PenBox size={20} className="mr-2" ></PenBox>
+                    Create Profile
+                  </Button>
+                  </Link>)
+              
+              }
+             <UserButton appearance={{
+                elements:{
+                   avatarBox: "w-10 h-10",
+                },
+             }}>
+                <UserButton.MenuItems>
+                {user?.unsafeMetadata?.role === "Founder" &&
+                (<UserButton.Link
+                label="My Investors"
+                labelIcon={<BriefcaseBusiness size={15}/>}
+                href='/my-investors'
+                />)}
+
+                 { user?.unsafeMetadata?.role === "Investor" && (
+                    <UserButton.Link
+                  label="My Profile"
+                  labelIcon={<BriefcaseBusiness size={15}/>}
+                  href='/investor-profile'
+                  />
+                  )}
+                
+                </UserButton.MenuItems>
+                </UserButton>
+
+              </div>
+      </SignedIn>
+      </div>
+            
+      </nav> 
 
     {/* showSignIn component */}
-    {showSignIn && (
+    {showSignIn &&  (
       <div onClick = {handleClickOutside} className="fixed inset-0 flex justify-center items-center">
         {/* redirect to onboarding page if signed in */}
         <SignIn forceRedirectUrl="/onboarding" />
