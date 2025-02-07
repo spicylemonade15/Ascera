@@ -49,42 +49,37 @@ const Header = () => {
 
       </SignedOut>
       <SignedIn>
-
-      { 
-              user?.unsafeMetadata?.role === "Founder" && (
-              <Link to="/post-startup">
-              
-              <Button variant="destructive" className='rounded-full'>
-                 <PenBox size={20} className="mr-2" ></PenBox>
-                  Post a Startup
-                </Button>              
-              </Link>)}
-
-              <div className='flex flex-col sm:flex-row gap-2 sm:gap-4'>
-
-              {
-              user?.unsafeMetadata?.role === "Investor" && (
-                <Link to="/profile">
-                
-                <Button variant="destructive" className='rounded-full'>
-                   <PenBox size={20} className="mr-2" ></PenBox>
-                    Create Profile
-                  </Button>
-                  </Link>)
-              
-              }
-             <UserButton appearance={{
+      
+               <UserButton appearance={{
                 elements:{
                    avatarBox: "w-10 h-10",
                 },
              }}>
                 <UserButton.MenuItems>
+
+                {user?.unsafeMetadata?.role === "Founder" && (
+                <UserButton.Link
+                label="Post a Startup"
+                labelIcon={<UserRoundPen size={15}/>}
+                href='/post-startup'
+                />)}
+
                 {user?.unsafeMetadata?.role === "Founder" &&
                 (<UserButton.Link
                 label="My Investors"
                 labelIcon={<BriefcaseBusiness size={15}/>}
                 href='/my-investors'
                 />)}
+
+              {
+              user?.unsafeMetadata?.role === "Investor" && (
+              <UserButton.Link
+                label="Create Profile"
+                labelIcon={<BriefcaseBusiness size={15}/>}
+                href='/profile'
+                />)
+              
+              }
 
                  { user?.unsafeMetadata?.role === "Investor" && (
                     <UserButton.Link
@@ -104,8 +99,6 @@ const Header = () => {
                 
                 </UserButton.MenuItems>
                 </UserButton>
-
-              </div>
       </SignedIn>
       </div>
             

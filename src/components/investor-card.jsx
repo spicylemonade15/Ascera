@@ -1,13 +1,11 @@
-import { useEffect, useState } from 'react'
 import { useUser } from '@clerk/clerk-react'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "./ui/card"
-import { Heart, MapPinIcon, Trash2Icon } from 'lucide-react'
+import { MapPinIcon} from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { Button } from "./ui/button"
 import useFetch from '../hooks/use-fetch'
 // import { deleteJob, saveJob } from '../api/apiJobs'
 import { BarLoader } from 'react-spinners'
-import { getStartups } from '../api/apiStartup'
 import { getInvestors } from '../api/apiInvestor'
 
 const InvestorCard = ({
