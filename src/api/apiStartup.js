@@ -47,3 +47,20 @@ export async function addNewStartup(token, _, startupData) {
         
         return data;
 }
+
+export async function getMyStartups(token, {investor_id}) {
+    
+    const supabase = await supabaseClient(token); 
+
+        const { data, error } = await supabase 
+        .from("startups")
+        .select("*, industry:industries(name,logo_url)")
+        .eq("investor_id",investor_id);
+
+        if(error) {
+            console.error("Error Fetching Startups:", error);
+            return null;
+        }
+
+return data;
+}
