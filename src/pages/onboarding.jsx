@@ -29,7 +29,7 @@ const Onboarding = () => {
   useEffect(() => {
     if(user?.unsafeMetadata?.role){
       navigate(
-        user?.unsafeMetadata?.role === "investor" ? "/profile" : "/post-startup"
+        user?.unsafeMetadata?.role === "investor" ? "/profile" : "/startups"
       );
     }
 
