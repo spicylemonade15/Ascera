@@ -8,7 +8,8 @@ export async function pitchToInvestor(token, _, startupData) {
     .insert([{
         ...startupData,
     },
-    ]).select()
+    ])
+    .select()
 
     if (error) {
         console.error("Error submitting pitch: ", error)
@@ -18,14 +19,14 @@ export async function pitchToInvestor(token, _, startupData) {
     return data;
 }
 
-export async function updatePitchStatus(token, {startup_id}, status) {
+export async function updatePitchStatus(token, {founder_id, status} ) {
     
     const supabase = await supabaseClient(token);
 
         const { data, error } = await supabase
             .from("pitch")
             .update({status})
-            .eq("startup_id",startup_id)
+            .eq("founder_id",founder_id)
             .select();
 
         if(error || data.length === 0) {
@@ -36,14 +37,14 @@ export async function updatePitchStatus(token, {startup_id}, status) {
         return data;
  }
 
- export async function getPitches(token, { user_id }) {
+ export async function getPitchedStartups(token, { investor_id }) {
     
     const supabase = await supabaseClient(token);
 
         const { data, error } = await supabase
             .from("pitch")
-            .select("*, startup:startups(name, industry)")
-            .eq("founder_id",user_id)
+            .select("*")
+            .eq("investor_id",investor_id)
             
 
         if(error) {

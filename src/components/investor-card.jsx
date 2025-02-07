@@ -1,13 +1,11 @@
-import { useEffect, useState } from 'react'
 import { useUser } from '@clerk/clerk-react'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "./ui/card"
-import { Heart, MapPinIcon, Trash2Icon } from 'lucide-react'
+import { MapPinIcon} from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { Button } from "./ui/button"
 import useFetch from '../hooks/use-fetch'
 // import { deleteJob, saveJob } from '../api/apiJobs'
 import { BarLoader } from 'react-spinners'
-import { getStartups } from '../api/apiStartup'
 import { getInvestors } from '../api/apiInvestor'
 
 const InvestorCard = ({
@@ -51,7 +49,7 @@ const InvestorCard = ({
       <BarLoader className="mt-4" width={"100%"} color="#36d7b7" />
     )}
     <CardHeader className="flex">
-    <CardTitle className="flex justify-between font-bold">{investor.industry}
+    <CardTitle className="flex justify-between font-bold">{investor.name}
       {/* {isMyJob && (
         <Trash2Icon fill="red" size={18} className="text-red-300 cursor-pointer" onClick={handleDeleteJob} />
       )} */}
@@ -68,7 +66,7 @@ const InvestorCard = ({
         {investor.company_name}
         </div>
         <div className ="flex gap-2 items-center">
-        {investor.name}
+        {investor.industry}
         </div>
       </div>
       <hr />

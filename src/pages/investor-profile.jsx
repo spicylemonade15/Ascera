@@ -55,12 +55,15 @@ const InvestorProfile = () => {
   } = useFetch(addInvestor)
 
   const {
-    data: investors,
-    fn: fnInvestors,
-    error: errorInvestors,
-  } = useFetch(getInvestors);  
+    fn:fnInvestors,
+    data:investors,
+    loading:loadingInvestors,
+   } = useFetch(getInvestors, {
+      
+   
+   });
 
-  console.log("investors:", investors);
+   console.log("fetched data: ", investors);
 
   // checking if investor has already created profile
   const hasProfile = investors?.find((investor) => investor.investor_id === user.id);
@@ -89,13 +92,7 @@ const InvestorProfile = () => {
 
   return (
     <div>
-      {hasProfile && (
-        <div>Hello there the profile already exists!!!</div>
-      )}
-
-      {!hasProfile && (
-        <div>Ohh looks like you don't have a profile yet!!!</div>
-      )}
+      
       <h1 className="gradient-title font-extrabold text-5xl sm:text-7xl text-center pb-8">Profile Creation</h1>
       <form onSubmit={handleSubmit(onSubmit)} className = "flex flex-col gap-4 p-4 pb-0">
       <Input placeholder="Name" {...register("name")} />

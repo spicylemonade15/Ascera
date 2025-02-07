@@ -1,7 +1,7 @@
 import { useUser } from "@clerk/clerk-react";
 import useFetch from "../hooks/use-fetch";
 import { useParams } from "react-router-dom";
-import { getSingleStartup } from "../api/apiStartup";
+import { getSingleStartup, getStartups } from "../api/apiStartup";
 import { useEffect } from "react";
 import { BarLoader } from "react-spinners";
 import { Briefcase, DoorClosed, DoorOpen, MapPinIcon } from "lucide-react";
@@ -23,14 +23,18 @@ const StartupPage = () => {
     startup_id: id,
   });
 
-  // const { loading: loadingHiringStatus, fn: fnHiringStatus } = useFetch(updateHiringStatus, {
-  //   job_id: id,
-  // });
+  // console.log(startup);
 
-  // const handleStatusChange = (value) => {
-  //   const isOpen = value === "open";
-  //   fnHiringStatus(isOpen).then(() => fnJob());
-  // };
+
+  const { 
+    loading: loadingPitchStatus, 
+    fn: fnPitchStatus 
+  } = useFetch(updatePitchStatus);
+
+  const handleStatusChange = (value) => {
+    const isOpen = value === "open";
+    fnHiringStatus(isOpen).then(() => fnJob());
+  };
 
   useEffect(() => {
     if (isLoaded) fnStartup()
@@ -52,31 +56,13 @@ const StartupPage = () => {
         <MapPinIcon />
         {startup?.location}
       </div>
-      {/* <div className="flex gap-2">
-        <Briefcase /> {startup?. applications?.length} Applicants
-      </div> */}
+      <div className="flex gap-2">
+        <Briefcase /> Industry: {startup?.industry}
+      </div>
       {/* <div className="flex gap-2">
        {startup?.isOpen ? (<><DoorOpen/> Open</> ): ( <><DoorClosed/> Closed</> )}
       </div> */}
     </div>
-    
-    {/* hiring status */}
-    {/* {startup?.recruiter_id === user?.id  && (
-      <Select onValueChange={handleStatusChange}>
-      <SelectTrigger className={`w-full ${startup?.isOpen ? "bg-green-950" : "bg-red-950"}`}>
-        <SelectValue placeholder={"Hiring Status " + (startup?.isOpen ? "( Open )" : "( Closed )")}
-        />
-      </SelectTrigger>
-      <SelectContent>
-          <SelectItem value="open">
-          Open
-        </SelectItem>
-        <SelectItem value="closed">
-          Closed
-        </SelectItem>
-      </SelectContent>
-    </Select>
-  )} */}
 
     <h2 className="text-2xl sm:text-3xl font-bold">About the startup</h2>
     <p className="sm:text-lg">{startup?.description}</p>
@@ -100,6 +86,25 @@ const StartupPage = () => {
         })}
       </div>
     )} */}
+
+    {/* hiring status */}
+    {user?.unsafeMetadata?.role === "Investor"  && (
+      <Select onValueChange={handleStatusChange}>
+      <SelectTrigger className={`w-full ${startup?.isOpen ? "bg-green-950" : "bg-red-950"}`}>
+        <SelectValue placeholder={"Hiring Status " + (startup?.isOpen ? "( Open )" : "( Closed )")}
+        />
+      </SelectTrigger>
+      <SelectContent>
+          <SelectItem value="open">
+          Open
+        </SelectItem>
+        <SelectItem value="closed">
+          Closed
+        </SelectItem>
+      </SelectContent>
+    </Select>
+  )}
+  
     </div>
   )
 }

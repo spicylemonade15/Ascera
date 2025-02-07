@@ -10,26 +10,37 @@ import { BarLoader } from 'react-spinners';
 import { getStartups } from '../api/apiStartup';
 import { State } from 'country-state-city';
 import StartupCard from '../components/startup-card';
+import { getPitchedStartups } from '../api/apiPitch';
 // import StartupCard from '../components/startup-card';
 
 const StartupListing = () => {
 
-
   const [searchQuery, setSearchQuery] = useState("");
   const [industry, setIndustry] = useState("");
   const [location, setLocation] = useState("");
-  const { isLoaded } = useUser();
+  const { user, isLoaded } = useUser();
 
-  const {
+  // const {
+  //   fn:fnStartups,
+  //   data:startups,
+  //   loading:loadingStartups,
+  //  } = useFetch(getStartups, {
+  //   location,
+  //   industry,
+  //   searchQuery,
+  //  });
+
+
+   const {
     fn:fnStartups,
     data:startups,
     loading:loadingStartups,
-   } = useFetch(getStartups, {
-    location,
-    industry,
-    searchQuery,
-   });
+    error:errorStartups,
+   } = useFetch(getPitchedStartups, {
+    investor_id: user?.id
+   })
 
+   
    console.log("fetched data: ", startups);
 
  useEffect(() => {

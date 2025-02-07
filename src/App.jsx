@@ -58,7 +58,7 @@ const router = createBrowserRouter([
         </ProtectedRoute>),
       },
       {
-        path: 'my-investors',
+        path: '/my-investors',
         element: ( <ProtectedRoute>
           <MyInvestors />
         </ProtectedRoute>),

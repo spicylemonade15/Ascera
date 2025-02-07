@@ -70,7 +70,7 @@ export async function getSingleStartup(token, {startup_id}) {
     const supabase = await supabaseClient(token);
 
     let query = supabase 
-    .from("jobs")
+    .from("startups")
     .select("*")
     .eq("id", startup_id)
     .single();
@@ -85,3 +85,5 @@ export async function getSingleStartup(token, {startup_id}) {
         
         return data;
 }
+
+// 
