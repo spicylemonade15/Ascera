@@ -54,3 +54,21 @@ export async function updatePitchStatus(token, {founder_id, status} ) {
 
         return data;
  }
+
+ export async function getPitchedInvestors(token, { founder_id }) {
+    
+    const supabase = await supabaseClient(token);
+
+        const { data, error } = await supabase
+            .from("pitch")
+            .select("*")
+            .eq("founder_id",founder_id)
+            
+
+        if(error) {
+            console.error("Error Fetching Pitches:", error);
+            return null;
+        }
+
+        return data;
+ }
