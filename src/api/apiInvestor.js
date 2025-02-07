@@ -9,7 +9,7 @@ export async function getInvestors(token) {
     const supabase = await supabaseClient(token)
 
     let query = supabase
-    .from('investors')
+    .from("investors")
     .select("*")
 
     // return data fetched from supabase
@@ -39,3 +39,17 @@ export async function addInvestor(token, _, investorData) {
     return data;
 }
 
+// function to check if profile created
+export async function checkInvestorProfile(token, investorId) {
+    const supabase = await supabaseClient(token);
+    const { data, error } = await supabase
+    .from('investors')
+    .select('investor_id')
+    .eq('investor_id', investorId)
+
+    if (error) {
+        console.error("Error checking investor profile: ", error);
+    }
+
+    return data;
+}

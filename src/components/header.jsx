@@ -86,6 +86,13 @@ const Header = () => {
                 href='/my-investors'
                 />)}
 
+                {user?.unsafeMetadata?.role === "Founder" &&
+                (<UserButton.Link
+                label="Post a Startup"
+                labelIcon={<BriefcaseBusiness size={15}/>}
+                href='/post-startup'
+                />)}
+
                  { user?.unsafeMetadata?.role === "Investor" && (
                     <UserButton.Link
                   label="My Profile"

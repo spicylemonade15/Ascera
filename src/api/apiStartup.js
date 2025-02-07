@@ -64,3 +64,24 @@ export async function getMyStartups(token, {investor_id}) {
 
 return data;
 }
+
+// function to fetch single startup
+export async function getSingleStartup(token, {startup_id}) {
+    const supabase = await supabaseClient(token);
+
+    let query = supabase 
+    .from("jobs")
+    .select("*")
+    .eq("id", startup_id)
+    .single();
+
+    const { data, error } = await query;
+
+        if (error) {
+            console.error("Error Fetching Startup:", error);
+            return null;
+        }
+
+        
+        return data;
+}

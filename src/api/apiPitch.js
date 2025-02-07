@@ -36,7 +36,7 @@ export async function updatePitchStatus(token, {startup_id}, status) {
         return data;
  }
 
- export async function getpitches(token, { user_id }) {
+ export async function getPitches(token, { user_id }) {
     
     const supabase = await supabaseClient(token);
 

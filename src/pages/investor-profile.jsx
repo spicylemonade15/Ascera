@@ -8,8 +8,8 @@ import { Input } from "../components/ui/input"
 import { Textarea } from "../components/ui/textarea"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select"
 import { State } from "country-state-city"
-import { useEffect } from "react"
-import { addInvestor, getInvestors } from "../api/apiInvestor"
+import { useEffect, useState } from "react"
+import { addInvestor, getInvestors, checkInvestorProfile } from "../api/apiInvestor"
 import useFetch from "../hooks/use-fetch"
 import { BarLoader } from "react-spinners"
 import { Button } from "../components/ui/button"
@@ -58,8 +58,12 @@ const InvestorProfile = () => {
     data: investors,
     fn: fnInvestors,
     error: errorInvestors,
-  } = useFetch(getInvestors);
-  console.log("investor data: ", investors);
+  } = useFetch(getInvestors);  
+
+  console.log("investors:", investors);
+
+  // checking if investor has already created profile
+  const hasProfile = investors?.find((investor) => investor.investor_id === user.id);
 
   const onSubmit = (data) => {
     fnCreateInvestor({
@@ -69,16 +73,29 @@ const InvestorProfile = () => {
   }
   
   useEffect(()=>{
-    console.log(dataCreateInvestor);
     if(dataCreateInvestor?.length>0) navigate("/startups")
   }, [loadingCreateInvestor])
+
+  // check if user has already created their profile 
+  // const isProfile = useFetch(checkProfile)
+  // console.log("dikhao:",isProfile)
+
  
   // if (user?.unsafeMetadata?.role !== "Investor") {
   //   return <Navigate to="/post-startup" />
   // }
 
+  
+
   return (
     <div>
+      {hasProfile && (
+        <div>Hello there the profile already exists!!!</div>
+      )}
+
+      {!hasProfile && (
+        <div>Ohh looks like you don't have a profile yet!!!</div>
+      )}
       <h1 className="gradient-title font-extrabold text-5xl sm:text-7xl text-center pb-8">Profile Creation</h1>
       <form onSubmit={handleSubmit(onSubmit)} className = "flex flex-col gap-4 p-4 pb-0">
       <Input placeholder="Name" {...register("name")} />
