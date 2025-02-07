@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { Button } from './ui/button'
 import { SignedIn, SignedOut,  SignIn,  UserButton, useUser } from '@clerk/clerk-react'
-import { BriefcaseBusiness, Heart, PenBox } from 'lucide-react'
+import { BriefcaseBusiness, Heart, PenBox, UserRoundPen } from 'lucide-react'
 
 
 // header component 
@@ -89,8 +89,16 @@ const Header = () => {
                  { user?.unsafeMetadata?.role === "Investor" && (
                     <UserButton.Link
                   label="My Profile"
-                  labelIcon={<BriefcaseBusiness size={15}/>}
+                  labelIcon={<UserRoundPen size={15}/>}
                   href='/profile'
+                  />
+                  )}
+
+                { user?.unsafeMetadata?.role === "Investor" && (
+                    <UserButton.Link
+                  label="Startups"
+                  labelIcon={<BriefcaseBusiness size={15}/>}
+                  href='/startups'
                   />
                   )}
                 

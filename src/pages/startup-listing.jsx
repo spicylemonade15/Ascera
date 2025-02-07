@@ -9,6 +9,7 @@ import React, { useEffect, useState } from 'react'
 import { BarLoader } from 'react-spinners';
 import { getStartups } from '../api/apiStartup';
 import { State } from 'country-state-city';
+import StartupCard from '../components/startup-card';
 // import StartupCard from '../components/startup-card';
 
 const StartupListing = () => {
@@ -108,21 +109,21 @@ const StartupListing = () => {
       <BarLoader className="mb-4" width={"100%"} color="#36d7b7" />
     )}
 
-    {/* {loadingStartups === false && (
+    {loadingStartups === false && (
       <div className='mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-4'>
-        {Startups?.length ?(
-          Startups.map((startup)=>{
+        {startups?.length ?(
+          startups.map((startup)=>{
             return( <StartupCard
             key={startup.id}
-            job={startup}
+            startup={startup}
              />
             );
           })
         ):(
           <div>No startups found</div>
-        )} */}
-        {/* </div> */}
-    {/* )} */}
+        )}
+        </div>
+    )}
  
     </div>
   )

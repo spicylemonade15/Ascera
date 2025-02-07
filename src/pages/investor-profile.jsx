@@ -72,7 +72,10 @@ const InvestorProfile = () => {
     console.log(dataCreateInvestor);
     if(dataCreateInvestor?.length>0) navigate("/startups")
   }, [loadingCreateInvestor])
-  // function to handle status change
+ 
+  // if (user?.unsafeMetadata?.role !== "Investor") {
+  //   return <Navigate to="/post-startup" />
+  // }
 
   return (
     <div>
