@@ -8,107 +8,124 @@ import { useUser } from '@clerk/clerk-react'
 import React, { useEffect, useState } from 'react'
 import { BarLoader } from 'react-spinners';
 import { getStartups } from '../api/apiStartup';
+import { State } from 'country-state-city';
 // import StartupCard from '../components/startup-card';
 
 const StartupListing = () => {
 
 
   const [searchQuery, setSearchQuery] = useState("");
-  const [founderName, setfounderName] = useState("");
-  const [industry_id, setindustry_id] = useState("");
-  const { user, isLoaded } = useUser();
+  const [industry, setIndustry] = useState("");
+  const [location, setLocation] = useState("");
+  const { isLoaded } = useUser();
 
   const {
     fn:fnStartups,
-    data:Startups,
+    data:startups,
     loading:loadingStartups,
-   }=useFetch(getStartups);
+   } = useFetch(getStartups, {
+    location,
+    industry,
+    searchQuery,
+   });
 
-   console.log("fetched data: ", Startups);
+   console.log("fetched data: ", startups);
 
-//  const { fn: fnindustries, data: industries } = useFetch(getCompanies);
+ useEffect(() => {
+  if(isLoaded) fnStartups();
+ },[isLoaded, industry, location, searchQuery]);
 
-//  useEffect(() => {
-//   if(isLoaded) fnCompanies();
-//  },[isLoaded]);
+ const handleSearch = (e) => {
+  e.preventDefault();
+  let formData = new FormData(e.target);
 
-//  useEffect(() => {
-//   if(isLoaded) fnStartups();
-//  },[isLoaded, founderName, industry_id, searchQuery]);
+  const query = formData.get("search-query");
+  if (query) setSearchQuery(query);
+ };
 
-//  const handleSearch = (e) => {
-//   e.preventDefault();
-//   let formData = new FormData(e.target);
+ const clearFilters = () => {
+  setSearchQuery("");
+  setIndustry("");
+  setLocation("");
+ };
 
-//   const query = formData.get("search-query");
-//   if (query) setSearchQuery(query);
-//  };
+ if(!isLoaded){
+  return <BarLoader className="mb-4" width={"100%"} color="#36d7b7" />;
+}
 
-//  const clearFilters = () => {
-//   setSearchQuery("");
-//   setindustry_id("");
-//   setfounderName("");
-//  };
+  return (
+    <div>
+      <h1 className='mb-6 gradient-title font-extrabold text-6xl sm:text-7xl text-center'>
+        Pitched Startups
+      </h1>
 
-//  if(!isLoaded){
-//   return <BarLoader className="mb-4" width={"100%"} color="#36d7b7" />;
-// }
+      {/* add filters here */}
+      <form onSubmit={handleSearch} className="h-14 flex flex-row w-full gap-2 items-center mb-3">
+      <Input type="text" placeholder="Search Startups by Title.." name="search-query" className="h-full flex-1 px-4 text-md"/>
+      <Button type="submit" className="h-full sm:w-28" variant="blue">
+        Search
+      </Button>
+    </form>
 
-//   return (
-//     <div>
-//       <h1 className='mb-6 gradient-title font-extrabold text-6xl sm:text-7xl text-center'>
-//         Latest Startups
-//       </h1>
+       <div className='flex flex-col sm:flex-row gap-2'>
+      <Select value={location} onValueChange={(value) => setLocation(value)}>
+      <SelectTrigger>
+        <SelectValue placeholder="Filter by Location" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+        {State.getStatesOfCountry("IN").map(({name})=>{
+          return (
+          <SelectItem key={name} value={name}>
+          {name}
+        </SelectItem>
+        )
+      })}
+        </SelectGroup>
+      </SelectContent>
+    </Select>
 
-//       {/* add filters here */}
+    <Select value={industry} onValueChange={(value) => setIndustry(value)}>
+          <SelectTrigger>
+            <SelectValue placeholder="Filter by Industry" />
+          </SelectTrigger>
+          <SelectContent>
+                        <SelectItem value="EdTech">EdTech</SelectItem>
+                      <SelectItem value="Logistics">Logistics</SelectItem>
+                      <SelectItem value="Ecommerce">Ecommerce</SelectItem>
+                      <SelectItem value="Healthcare">Healthcare</SelectItem>
+                      <SelectItem value="AI">AI</SelectItem>
+                      <SelectItem value="FinTech">Logistics</SelectItem>
+                       
+                    </SelectContent>
+        </Select>
+    <Button onClick={clearFilters} variant="destructive" className="sm:w-1/2" >
+          Clear Filters
+    </Button>
+  </div>
 
-//        <div className='flex flex-col sm:flex-row gap-2'>
-      
-//     <Select value={industry_id} onValueChange={(value) => setIndustry_id(value)}>
-//           <SelectTrigger>
-//             <SelectValue placeholder="Filter by Industry" />
-//           </SelectTrigger>
-//           <SelectContent>
-//             <SelectGroup>
-//               {Array.isArray(industries) && industries.length > 0 ? (
-//                 industries.map(({ name, id }) => (
-//                   <SelectItem key={id} value={id}>
-//                     {name}
-//                   </SelectItem>
-//                 ))
-//               ) : (
-//                 <SelectItem disabled>No Industries Available</SelectItem>
-//               )}
-//             </SelectGroup>
-//           </SelectContent>
-//         </Select>
-//     <Button onClick={clearFilters} variant="destructive" className="sm:w-1/2" >
-//           Clear Filters
-//     </Button>
-//   </div>
+    {loadingStartups && (
+      <BarLoader className="mb-4" width={"100%"} color="#36d7b7" />
+    )}
 
-//     {loadingStartups && (
-//       <BarLoader className="mb-4" width={"100%"} color="#36d7b7" />
-//     )}
-
-//     {loadingStartups === false && (
-//       <div className='mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-4'>
-//         {Startups?.length ?(
-//           Startups.map((startup)=>{
-//             return( <StartupCard
-//             key={startup.id}
-//             job={startup}
-//              />
-//             );
-//           })
-//         ):(
-//           <div>No startups fouund</div>
-//         )}
-//         </div>
-//     )}
+    {/* {loadingStartups === false && (
+      <div className='mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-4'>
+        {Startups?.length ?(
+          Startups.map((startup)=>{
+            return( <StartupCard
+            key={startup.id}
+            job={startup}
+             />
+            );
+          })
+        ):(
+          <div>No startups found</div>
+        )} */}
+        {/* </div> */}
+    {/* )} */}
  
-//     </div>
-//   )
+    </div>
+  )
 };
 
 export default StartupListing ;

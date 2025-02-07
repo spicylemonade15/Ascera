@@ -64,7 +64,7 @@ const Header = () => {
 
               {
               user?.unsafeMetadata?.role === "Investor" && (
-                <Link to="/investor-profile">
+                <Link to="/profile">
                 
                 <Button variant="destructive" className='rounded-full'>
                    <PenBox size={20} className="mr-2" ></PenBox>
@@ -90,7 +90,7 @@ const Header = () => {
                     <UserButton.Link
                   label="My Profile"
                   labelIcon={<BriefcaseBusiness size={15}/>}
-                  href='/investor-profile'
+                  href='/profile'
                   />
                   )}
                 

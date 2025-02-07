@@ -10,11 +10,9 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectVa
 import { State } from "country-state-city"
 import { useEffect } from "react"
 import { addInvestor, getInvestors } from "../api/apiInvestor"
-// import { getCompanies } from "../api/apiCompanies"
 import useFetch from "../hooks/use-fetch"
 import { BarLoader } from "react-spinners"
 import { Button } from "../components/ui/button"
-import MDEditor from "@uiw/react-md-editor"
 import { Navigate, useNavigate } from "react-router-dom"
 // import AddCompanyDrawer from "../components/add-company-drawer"
 
@@ -56,6 +54,13 @@ const InvestorProfile = () => {
     fn: fnCreateInvestor, 
   } = useFetch(addInvestor)
 
+  const {
+    data: investors,
+    fn: fnInvestors,
+    error: errorInvestors,
+  } = useFetch(getInvestors);
+  console.log("investor data: ", investors);
+
   const onSubmit = (data) => {
     fnCreateInvestor({
       ...data,
@@ -73,8 +78,8 @@ const InvestorProfile = () => {
     <div>
       <h1 className="gradient-title font-extrabold text-5xl sm:text-7xl text-center pb-8">Profile Creation</h1>
       <form onSubmit={handleSubmit(onSubmit)} className = "flex flex-col gap-4 p-4 pb-0">
-      <Input placeholder="Name" {...register("title")} />
-        {errors.title && <p className="text-red-500">{errors.title.message}</p>}
+      <Input placeholder="Name" {...register("name")} />
+        {errors.name && <p className="text-red-500">{errors.name.message}</p>}
 
         <Controller name="industry" control ={control} render={({field})=>(
           <Select value={field.value} onValueChange={field.onChange}>
@@ -96,7 +101,7 @@ const InvestorProfile = () => {
   />
         
         <Input placeholder="Company Name" {...register("company_name")} />
-        {errors.company_name && <p className="text-red-500">{errors.title.message}</p>}
+        {errors.company_name && <p className="text-red-500">{errors.company_name.message}</p>}
 
         <Textarea placeholder="Description" {...register("description")} />
         {errors.description && (<p className="text-red-500">{errors.description.message}</p>)}
@@ -129,8 +134,8 @@ const InvestorProfile = () => {
     )}
     {/* add industry enum type to profile creation */}
 
-    {errors.requirements && (
-      <p className="text-red-500">{errors.requirements.message}</p>
+    {errors.company_name && (
+      <p className="text-red-500">{errors.company_name.message}</p>
     )}
     {errorCreateInvestor?.message && (
       <p className="text-red-500">{errorCreateInvestor?.message}</p>
