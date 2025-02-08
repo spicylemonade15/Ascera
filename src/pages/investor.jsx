@@ -43,8 +43,8 @@ const InvestorPage = () => {
       founder_id: user?.id, 
       sname: startup?.name, 
       description: startup?.description, 
-      // location: startup?.location, 
-      // industry: startup?.industry, 
+      location: startup?.location, 
+      industry: startup?.industry, 
       investor_id: investor?.investor_id
     });
 

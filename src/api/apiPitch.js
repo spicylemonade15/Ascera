@@ -84,6 +84,7 @@ export async function updatePitchStatus(token, {founder_id, status} ) {
     .eq("founder_id", founder_id)
     .eq("investor_id", investor_id)
 
+
     if(error) {
         console.error("Error Fetching Pitches:", error);
             return null;
