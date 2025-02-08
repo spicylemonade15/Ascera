@@ -23,6 +23,8 @@ the startup ecosystem.
     4) hooks - custom hook to fetch data 
     5) layout - app layout
     6) pages - contains pages
+    7) App, index and main file  
+3) remaining files and folders
 
 
 ## Technology Stack:
