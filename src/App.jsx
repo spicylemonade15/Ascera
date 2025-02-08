@@ -11,6 +11,7 @@ import InvestorProfile from './pages/investor-profile'
 import FindInvestor from './pages/find-investor'
 import MyInvestors from './pages/my-investors'
 import { ThemeProvider } from './components/theme-provider'
+import InvestorPage from './pages/investor';
 
 // creater router for app routing
 const router = createBrowserRouter([
@@ -61,6 +62,12 @@ const router = createBrowserRouter([
         path: '/my-investors',
         element: ( <ProtectedRoute>
           <MyInvestors />
+        </ProtectedRoute>),
+      },
+      {
+        path: '/investor/:id',
+        element: ( <ProtectedRoute>
+          <InvestorPage />
         </ProtectedRoute>),
       },
     

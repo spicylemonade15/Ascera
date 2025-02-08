@@ -53,3 +53,25 @@ export async function checkInvestorProfile(token, investorId) {
 
     return data;
 }
+
+// function to get single investor
+// function to fetch single startup
+export async function getSingleInvestor(token, {id}) {
+    const supabase = await supabaseClient(token);
+
+    let query = supabase 
+    .from("investors")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+    const { data, error } = await query;
+
+        if (error) {
+            console.error("Error Fetching Startup:", error);
+            return null;
+        }
+
+        
+        return data;
+}

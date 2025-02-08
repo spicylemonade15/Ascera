@@ -18,6 +18,7 @@ const InvestorCard = ({
     data: investors,
   } = useFetch(getInvestors);
 
+  
 //   const {
 //     fn: fnSavedJob, 
 //     data: savedJob, 
@@ -73,7 +74,7 @@ const InvestorCard = ({
       {investor.description.substring(0, investor.description.indexOf("."))}.
     </CardContent>
     <CardFooter className="flex gap-2">
-      <Link to={`/profile/${investor.id}`} className="flex-1">
+      <Link to={`/investor/${investor.id}`} className="flex-1">
       <Button variant="secondary" className="w-full">
         More Details</Button></Link>
         {/* {!isMystartup && (

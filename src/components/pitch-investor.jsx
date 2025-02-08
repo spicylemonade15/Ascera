@@ -17,26 +17,26 @@ import useFetch from "@/hooks/use-fetch";
 import { BarLoader } from "react-spinners";
 import { pitchToInvestor } from "../api/apiPitch";
 
-const schema = z.object({
-    experience: z
-    .string()
-    .min(1, { message: "Past Experience(if any!)"})
-    .int(),
-    industry: z.string().min(1, {message: "Industry is required" }),
-    description: z.string().min(1, {message: "Give brief description about your Startup"})
-});
+// const schema = z.object({
+//     experience: z
+//     .string()
+//     .min(1, { message: "Past Experience(if any!)"})
+//     .int(),
+//     industry: z.string().min(1, {message: "Industry is required" }),
+//     description: z.string().min(1, {message: "Give brief description about your Startup"})
+// });
   
 const PitchStartupDrawer = ({user, startup, pitched = false, fetchStartup }) => {
 
-    const {
-        register,
-        handleSubmit,
-        control,
-        formState: { errors },
-            reset,
-    } = useForm({
-        resolver: zodResolver(schema),
-    });
+    // const {
+    //     register,
+    //     handleSubmit,
+    //     control,
+    //     formState: { errors },
+    //         reset,
+    // } = useForm({
+    //     resolver: zodResolver(schema),
+    // });
 
     const {
         loading: loadingPitch,
